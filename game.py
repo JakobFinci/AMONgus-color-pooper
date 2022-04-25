@@ -15,6 +15,18 @@ class GameArch:
 
     def __init__(self):
         """
+        Init function for the GameArch class
+
+        Attributes:
+            _main_clock: private game clock for tick-keeping
+            _main_font: private font representing 40pt Comic Sans
+            _screen: private screen data
+            _menu_music: private sound representing the main menu
+            music .WAV file
+            _game_music: private sound representing the game music
+            .WAV file
+            _music_channel: private music channel for playing music
+            in
         """
         self._main_clock = pygame.time.Clock()
         # Game clock related attributes
