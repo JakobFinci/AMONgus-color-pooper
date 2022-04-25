@@ -17,8 +17,14 @@ class GameArch:
         """
         """
         self._main_clock = pygame.time.Clock()
-        self._main_font = pygame.font.SysFont("Fonts/comic.ttf", 20)
+        # Game clock related attributes
+        self._main_font = pygame.font.SysFont("Fonts/comic.ttf", 40)
         self._screen = pygame.display.set_mode((500, 500),0,32)
+        # Graphics related attributes
+        self._menu_music = pygame.mixer.Sound("Music/mainmenu.wav") 
+        self._game_music = pygame.mixer.Sound("Music/pianoplaylist.wav")
+        self._music_channel = pygame.mixer.Channel(0)
+        # Music related attributes
 
     def draw_text(self, text, color, x, y):
         """
@@ -30,8 +36,6 @@ class GameArch:
             RGB color.
             x: integer representing the x position of the text.
             y: integer representing the x position of the text.
-            font: the font to use (use variable "font").
-            surface: the surface to draw on (use variable "screen").
         """
         textobj = self._main_font.render(text, 1, color)
         textrect = textobj.get_rect()
@@ -44,23 +48,25 @@ class GameArch:
         """
         while True:
             
-            self._screen.fill((0,0,0))
-            self.draw_text('AMON(gus) Color Pooper', (255, 255, 255), 20, 20)
-            self.draw_text('An artistic experience', (255, 255, 255), 20, 20)
-            # Fill screen and make text
-
-            mixer.music.load("Music/mainmenu.wav")
-            mixer.music.play()
+            self._music_channel.play(self._menu_music, loops=-1, fade_ms=5000)
             # Play main menu music while main menu is loaded
+
+            self._screen.fill((137,207,240))
+            self.draw_text('AMON(gus) Color Pooper', (0, 0, 0), 100, 130)
+            self.draw_text('An artistic experience', (0, 0, 0), 100, 165)
+            # Fill screen with color and make text
 
             mx, my = pygame.mouse.get_pos()
             # Create variables to allow for button click recognition
     
-            button = pygame.Rect(50, 100, 200, 50)
+            button = pygame.Rect(150, 225, 200, 50)
+            button_outside = button.inflate(2,2)
+            pygame.draw.rect(self._screen, (0, 0, 0), button_outside)
+            pygame.draw.rect(self._screen, (255, 255, 255), button)
+            self.draw_text('Begin!', (0, 0, 0), 210, 238)
             if button.collidepoint((mx, my)):
                 if click:
-                    game()
-            pygame.draw.rect(self._screen, (255, 0, 0), button)
+                    self.game()
             # Create button to start game
 
             click = False
@@ -81,11 +87,31 @@ class GameArch:
             self._main_clock.tick(60)
             # Create game clock
 
+    def game(self):
+        """
+        A method representing the actual game itself.
+        """
+        self._music_channel.stop()
+        running = True
+        while running:
+            
+            self._screen.fill((255,255,255))
+            # Fill screen with color
+
+            self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
+            # Play piano playlist if game is loaded
+
+            click = False
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+            # Provide method for user to exit out of game
+
 if __name__ == "__main__":
     GameArch().main_menu()
 # Initialize the game by starting the main menu
-
-    while main_game() is True:
-        mixer.music.load("Music/pianoplaylist.wav")
-        mixer.music.play()
-    # Play piano playlist while game is loaded
