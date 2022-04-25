@@ -49,7 +49,12 @@ class GameArch:
             self.draw_text('An artistic experience', (255, 255, 255), 20, 20)
             # Fill screen and make text
 
+            mixer.music.load("Music/mainmenu.wav")
+            mixer.music.play()
+            # Play main menu music while main menu is loaded
+
             mx, my = pygame.mouse.get_pos()
+            # Create variables to allow for button click recognition
     
             button = pygame.Rect(50, 100, 200, 50)
             if button.collidepoint((mx, my)):
@@ -72,9 +77,6 @@ class GameArch:
                         click = True
             # Provide method for user to exit out of game
 
-            mixer.music.load("Music/mainmenu.wav")
-            mixer.music.play()
-            # Play main menu music while main menu is loaded
             pygame.display.update()
             self._main_clock.tick(60)
             # Create game clock
