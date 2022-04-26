@@ -58,10 +58,9 @@ class GameArch:
         """
         A method representing the main menu of the game.
         """
+        self._music_channel.play(self._menu_music, loops=-1, fade_ms=5000)
+        # Play main menu music while main menu is loaded
         while True:
-            
-            self._music_channel.play(self._menu_music, loops=-1, fade_ms=5000)
-            # Play main menu music while main menu is loaded
 
             self._screen.fill((137,207,240))
             self.draw_text('AMON(gus) Color Pooper', (0, 0, 0), 100, 130)
@@ -104,14 +103,13 @@ class GameArch:
         A method representing the actual game itself.
         """
         self._music_channel.stop()
+        self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
+        # Stop old music and play piano playlist if game is loaded
         running = True
         while running:
             
             self._screen.fill((255,255,255))
             # Fill screen with color
-
-            self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
-            # Play piano playlist if game is loaded
 
             click = False
             for event in pygame.event.get():
@@ -123,6 +121,10 @@ class GameArch:
                         pygame.quit()
                         sys.exit()
             # Provide method for user to exit out of game
+
+            pygame.display.update()
+            self._main_clock.tick(60)
+            # Create game clock
 
 if __name__ == "__main__":
     GameArch().main_menu()
