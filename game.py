@@ -8,7 +8,8 @@ mixer.init()
 
 class GameArch:
     """
-    A class containing the game's architecture.
+    A class containing the game's architecture. Primarily for overall view, but also contains
+    controls and model for the game architecture itself.
     """
 
     click = False
@@ -92,7 +93,7 @@ class GameArch:
                 if event.type == MOUSEBUTTONDOWN:
                     if event.button == 1:
                         click = True
-            # Provide method for user to exit out of game
+            # Provide method for user to exit out of menu or enter the game
 
             pygame.display.update()
             self._main_clock.tick(60)
