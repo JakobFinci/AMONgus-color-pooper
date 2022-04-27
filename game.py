@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 from pygame import mixer
+from amon import Amon
 
 pygame.init()
 mixer.init()
@@ -111,6 +112,8 @@ class GameArch:
             
             self._screen.fill((255,255,255))
             # Fill screen with color
+
+            Amon.amon_MC
 
             click = False
             for event in pygame.event.get():
