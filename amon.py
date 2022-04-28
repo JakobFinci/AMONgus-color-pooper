@@ -19,11 +19,14 @@ class Amon:
         Init function for Amon
 
         Attributes:
+            _colors: a list of possible colors Amon can become
+            _color_counter: an int representing the number of times Amon has switched
+            colors
             _amon_stats: a private list containing statistics about Amon:
                 - int representing x coord
                 - int representing y coord
                 - string representing current orientation
-                - int representing current color
+                - string from _colors list representing current color
             _amon_keystrokes: a private list for recording 11 most recent
             keystrokes
             _secret_counter: a counter for counting secrets
