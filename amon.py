@@ -79,19 +79,23 @@ class Amon:
         """
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                self._amon_keystrokes.append(pygame.key.get_pressed())
+                self._amon_keystrokes.append(event.key)
                 if len(self._amon_keystrokes) > 11:
                     for _ in range(len(self._amon_keystrokes) - 11):
                         del self._amon_keystrokes[0]
                 # Record Amon's keystrokes
                 if self._amon_keystrokes == [K_UP, K_UP, K_DOWN, K_DOWN,\
                         K_LEFT, K_RIGHT, K_LEFT, K_RIGHT, K_b, K_a, K_SPACE]:
+                    self._amon_keystrokes = []
                     self._amon_stats[2] = "secret"
-                    self._music_channel.play(
-                        pygame.mixer.Sound(f"Music/{self._counter}.wav"))
+                    self._amon_channel.play(
+                        pygame.mixer.Sound(f"Music/{self._secret_counter}.wav"))
                     self._secret_counter += 1
                     if self._secret_counter == 9:
                         self._secret_counter = 1
+                    pygame.time.delay(4000)
+                    self._amon_stats[2] = "down"
                     continue
                     # Play easter egg if secret code is detected
                 self.movement(event)
+                # Update color, movement, and position.
