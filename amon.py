@@ -43,6 +43,8 @@ class Amon:
         A property method that returns a copy of _amon_stats
         """
         click = True
+        if click is False:
+            click = True
         # Bug fix, has no use here.
         return self._amon_stats
 

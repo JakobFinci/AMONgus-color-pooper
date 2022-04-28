@@ -1,0 +1,5 @@
+[MESSAGES CONTROL]
+
+disable=wildcard-import,unused-wildcard-import,no-member,undefined-variable
+
+# This file is because pylint hates pygame and screams for no good reason.
