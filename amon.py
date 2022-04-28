@@ -42,10 +42,6 @@ class Amon:
         """
         A property method that returns a copy of _amon_stats
         """
-        click = True
-        if click is False:
-            click = True
-        # Bug fix, has no use here.
         return self._amon_stats
 
     def movement(self, event):
@@ -82,8 +78,8 @@ class Amon:
             if event.type == pygame.KEYDOWN:
                 self._amon_keystrokes.append(pygame.key.get_pressed())
                 if len(self._amon_keystrokes) > 11:
-                        for _ in range(len(self._amon_keystrokes) - 11):
-                            del self._amon_keystrokes[0]
+                    for _ in range(len(self._amon_keystrokes) - 11):
+                        del self._amon_keystrokes[0]
                 # Record Amon's keystrokes
                 if self._amon_keystrokes == [K_UP, K_UP, K_DOWN, K_DOWN,\
                         K_LEFT, K_RIGHT, K_LEFT, K_RIGHT, K_b, K_a, K_SPACE]:
@@ -96,6 +92,3 @@ class Amon:
                     continue
                     # Play easter egg if secret code is detected
                 self.movement(event)
-
-        self._amon_stats[2] = "down"
-        # Have Amon face forward (or "down") by default

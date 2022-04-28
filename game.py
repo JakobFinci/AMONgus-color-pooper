@@ -45,7 +45,7 @@ class GameArch:
         self._music_channel = pygame.mixer.Channel(0)
         # Music related attributes
 
-    def draw_text(self, text, color, x_coord, y_coord):
+    def draw_text(self, text, text_color, x_coord, y_coord):
         """
         A method for drawing text with pygame.
 
@@ -56,7 +56,7 @@ class GameArch:
             x: integer representing the x position of the text.
             y: integer representing the x position of the text.
         """
-        textobj = self._main_font.render(text, 1, color)
+        textobj = self._main_font.render(text, 1, text_color)
         textrect = textobj.get_rect()
         textrect.topleft = (x_coord, y_coord)
         self._screen.blit(textobj, textrect)
@@ -126,7 +126,6 @@ class GameArch:
             current_amon.amon_mc()
             print(current_amon.amon_stats)
 
-            click = False
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
