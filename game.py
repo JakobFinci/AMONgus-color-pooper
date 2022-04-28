@@ -1,4 +1,8 @@
-import pygame, sys
+"""
+The best game in the word - main program file.
+"""
+import sys
+import pygame
 from pygame.locals import *
 from pygame import mixer
 from amon import Amon
@@ -6,6 +10,7 @@ from amon import Amon
 pygame.init()
 mixer.init()
 # Initialize pygame and music mixer
+
 
 class GameArch:
     """
@@ -33,14 +38,14 @@ class GameArch:
         self._main_clock = pygame.time.Clock()
         # Game clock related attributes
         self._main_font = pygame.font.SysFont("Fonts/comic.ttf", 40)
-        self._screen = pygame.display.set_mode((500, 500),0,32)
+        self._screen = pygame.display.set_mode((500, 500), 0, 32)
         # Graphics related attributes
-        self._menu_music = pygame.mixer.Sound("Music/mainmenu.wav") 
+        self._menu_music = pygame.mixer.Sound("Music/mainmenu.wav")
         self._game_music = pygame.mixer.Sound("Music/pianoplaylist.wav")
         self._music_channel = pygame.mixer.Channel(0)
         # Music related attributes
 
-    def draw_text(self, text, color, x, y):
+    def draw_text(self, text, color, x_coord, y_coord):
         """
         A method for drawing text with pygame.
 
@@ -53,7 +58,7 @@ class GameArch:
         """
         textobj = self._main_font.render(text, 1, color)
         textrect = textobj.get_rect()
-        textrect.topleft = (x, y)
+        textrect.topleft = (x_coord, y_coord)
         self._screen.blit(textobj, textrect)
 
     def main_menu(self):
@@ -62,27 +67,31 @@ class GameArch:
         """
         self._music_channel.play(self._menu_music, loops=-1, fade_ms=5000)
         # Play main menu music while main menu is loaded
+        click = False
+        # Define click as false before main loop for pylint
         while True:
 
-            self._screen.fill((137,207,240))
+            self._screen.fill((137, 207, 240))
             self.draw_text('AMON(gus) Color Pooper', (0, 0, 0), 100, 130)
             self.draw_text('An artistic experience', (0, 0, 0), 100, 165)
             # Fill screen with color and make text
 
-            mx, my = pygame.mouse.get_pos()
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             # Create variables to allow for button click recognition
-    
+
             button = pygame.Rect(150, 225, 200, 50)
-            button_outside = button.inflate(2,2)
+            button_outside = button.inflate(2, 2)
             pygame.draw.rect(self._screen, (0, 0, 0), button_outside)
             pygame.draw.rect(self._screen, (255, 255, 255), button)
             self.draw_text('Begin!', (0, 0, 0), 210, 238)
-            if button.collidepoint((mx, my)):
+            if button.collidepoint((mouse_x, mouse_y)):
                 if click:
                     self.game()
             # Create button to start game
 
             click = False
+            # Refresh click as False if user is not actively clicking
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
@@ -109,11 +118,9 @@ class GameArch:
         # Stop old music and play piano playlist if game is loaded
         running = True
         while running:
-            
-            self._screen.fill((255,255,255))
-            # Fill screen with color
 
-            Amon.amon_MC
+            self._screen.fill((255, 255, 255))
+            # Fill screen with color
 
             click = False
             for event in pygame.event.get():
@@ -129,6 +136,7 @@ class GameArch:
             pygame.display.update()
             self._main_clock.tick(60)
             # Create game clock
+
 
 if __name__ == "__main__":
     GameArch().main_menu()
