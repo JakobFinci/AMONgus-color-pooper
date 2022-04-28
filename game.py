@@ -115,12 +115,16 @@ class GameArch:
         """
         self._music_channel.stop()
         self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
+        current_amon = Amon()
         # Stop old music and play piano playlist if game is loaded
         running = True
         while running:
 
             self._screen.fill((255, 255, 255))
             # Fill screen with color
+
+            current_amon.amon_mc()
+            print(current_amon.amon_stats)
 
             click = False
             for event in pygame.event.get():
