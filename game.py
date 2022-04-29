@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 from pygame import mixer
 from amon import Amon
+from colortrail import Defecate
 
 pygame.init()
 mixer.init()
@@ -19,6 +20,7 @@ class GameArch:
     """
 
     click = False
+    # Define later used click variable to avoid errors/angry pylint
 
     def __init__(self):
         """
@@ -34,6 +36,8 @@ class GameArch:
             .WAV file
             _music_channel: private music channel for playing music
             in
+            _list_of_circles: a private list of all circles that have
+            been made (or rather pooed) by Amon
         """
         self._main_clock = pygame.time.Clock()
         # Game clock related attributes
@@ -44,6 +48,7 @@ class GameArch:
         self._game_music = pygame.mixer.Sound("Music/pianoplaylist.wav")
         self._music_channel = pygame.mixer.Channel(0)
         # Music related attributes
+        self._list_of_circles = []
 
     def draw_text(self, text, text_color, x_coord, y_coord):
         """
@@ -60,6 +65,23 @@ class GameArch:
         textrect = textobj.get_rect()
         textrect.topleft = (x_coord, y_coord)
         self._screen.blit(textobj, textrect)
+
+    def append_loc(self, apendee):
+        """
+        """
+        self._list_of_circles.append(apendee)
+
+    def draw_circle(self, args):
+        """
+        A method for drawing circles with pygame.
+
+        Args:
+            args: a list containing (in order) a tuple with
+            three ints representing an RGB color, a tuple with
+            two ints representing x and y coords and a int 
+            representing radius
+        """
+        pygame.draw.circle(self._screen,args[0],args[1],args[2])
 
     def main_menu(self):
         """
@@ -115,8 +137,9 @@ class GameArch:
         """
         self._music_channel.stop()
         self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
-        current_amon = Amon()
         # Stop old music and play piano playlist if game is loaded
+        current_amon = Amon()
+        current_poop = Defecate(current_amon)
         running = True
         while running:
 
@@ -124,7 +147,10 @@ class GameArch:
             # Fill screen with color
 
             current_amon.amon_mc()
-            print(current_amon.amon_stats)
+            self.append_loc(current_poop.poop())
+
+            for list in self._list_of_circles:
+                self.draw_circle(list)
 
             for event in pygame.event.get():
                 if event.type == QUIT:

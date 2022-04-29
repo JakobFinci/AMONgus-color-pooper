@@ -19,8 +19,8 @@ class Amon:
         Init function for Amon
 
         Attributes:
-            _colors: a list of possible colors Amon can become
-            _color_counter: an int representing the number of times Amon has switched
+            colors: a public list of possible colors Amon can become
+            _color_counter: a private int representing the number of times Amon has switched
             colors
             _amon_stats: a private list containing statistics about Amon:
                 - int representing x coord
@@ -29,13 +29,13 @@ class Amon:
                 - string from _colors list representing current color
             _amon_keystrokes: a private list for recording 11 most recent
             keystrokes
-            _secret_counter: a counter for counting secrets
+            _secret_counter: a private counter for counting secrets
             _music_channel: private music channel for playing music
             in
         """
-        self._colors = ["red", "yellow", "blue", "black", "white"]
+        self.colors = ["red", "yellow", "blue", "black", "white"]
         self._color_counter = 0
-        self._amon_stats = [200, 200, "down", self._colors[(self._color_counter % 5)]]
+        self._amon_stats = [200, 200, "down", self.colors[(self._color_counter % 5)]]
         self._amon_keystrokes = []
         self._secret_counter = 1
         self._amon_channel = pygame.mixer.Channel(1)
@@ -46,6 +46,15 @@ class Amon:
         A property method that returns a copy of _amon_stats
         """
         return self._amon_stats
+
+    # def poot(self):
+    #     """
+    #     A method to allow Amon to have healthy bowel movements.
+
+    #     Returns:
+    #         a list of data about Amon's bowel movement for the viewer
+    #     """
+    #     return [(102,90,44),(self._amon_stats[0],self._amon_stats[1]),50]
 
     def movement(self, event):
         """
@@ -62,15 +71,15 @@ class Amon:
             self._amon_stats[0] += 2
             self._amon_stats[2] = "right"
         if event.key == pygame.K_UP:
-            self._amon_stats[1] += 2
+            self._amon_stats[1] -= 2
             self._amon_stats[2] = "up"
         if event.key == pygame.K_DOWN:
-            self._amon_stats[1] -= 2
+            self._amon_stats[1] += 2
             self._amon_stats[2] = "down"
         # Detect movement and respond appropriately
         if event.key == pygame.K_SPACE:
             self._color_counter += 1
-            self._amon_stats[3] = self._colors[(self._color_counter % 5)]
+            self._amon_stats[3] = self.colors[(self._color_counter % 5)]
         # Detect space and change color accordingly
 
     def amon_mc(self):
