@@ -132,8 +132,8 @@ class GameArch:
             current_amon.amon_mc()
             self._list_of_circles.append(current_poop.poop())
 
-            for list in self._list_of_circles:
-                pygame.draw.circle(self._screen,list[0],list[1],list[2])
+            for item in self._list_of_circles:
+                pygame.draw.circle(self._screen,item[0],item[1],item[2])
 
             for event in pygame.event.get():
                 if event.type == QUIT:
