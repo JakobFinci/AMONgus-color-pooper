@@ -21,6 +21,7 @@ class ColorPoop(ABC):
         Init function for the color-poop
 
         Attributes:
+        _my_amon = a private instance of the Amon class
             colors_dict: a public dictionary of strings representing colors
             mapped to respective RGB triplet values represented by tuples
         """
@@ -64,6 +65,9 @@ class Defecate(ColorPoop):
         """
         Pylint wants at least two public methods - so I added this debug
         method to appease it and add dev functionality.
+
+        Returns:
+            a string based off of the functionality of the poop method
         """
         try:
             self.poop
