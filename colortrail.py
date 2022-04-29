@@ -10,6 +10,7 @@ from amon import Amon
 pygame.init()
 # Initialize pygame
 
+
 class ColorPoop(ABC):
     """
     An abstract base class for the color-poop
@@ -24,8 +25,8 @@ class ColorPoop(ABC):
             mapped to respective RGB triplet values represented by tuples
         """
         self._my_amon = my_amon
-        self.colors_dict = {"red":(255, 48, 48),"yellow":(238, 201, 0),\
-            "blue":(0, 191, 255),"black":(0, 0, 0),"white":(255, 255, 255)}
+        self.colors_dict = {"red": (255, 48, 48), "yellow": (238, 201, 0),
+                            "blue": (0, 191, 255), "black": (0, 0, 0), "white": (255, 255, 255)}
 
     @abstractmethod
     def poop(self):
@@ -39,6 +40,7 @@ class ColorPoop(ABC):
         An abstract method that does nothing.
         """
 
+
 class Defecate(ColorPoop):
     """
     A subclass of the game's abstract base class that serves as the color
@@ -48,12 +50,12 @@ class Defecate(ColorPoop):
     def poop(self):
         """
         Returns and renders a single color poop.
-        """ 
+        """
         amon_stats_copy = self._my_amon.amon_stats
         for colors in self.colors_dict:
             if colors == amon_stats_copy[3]:
-                curr_list = [colors,(amon_stats_copy[0],amon_stats_copy[1]),\
-                     3]
+                curr_list = [colors, (amon_stats_copy[0], amon_stats_copy[1]),
+                             3]
                 return curr_list
         # Attempt to draw circle with correct coord and color by returning it's
         # data for the viewer - else do nothing.
