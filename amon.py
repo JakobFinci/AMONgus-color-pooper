@@ -77,6 +77,15 @@ class Amon:
             self._amon_stats[1] += 2
             self._amon_stats[2] = "down"
         # Detect movement and respond appropriately
+        if self._amon_stats[0] < 0:
+            self._amon_stats[0] = 0
+        if self._amon_stats[1] < 0:
+            self._amon_stats[1] = 0
+        if self._amon_stats[0] > 500:
+            self._amon_stats[0] = 500
+        if self._amon_stats[1] > 500:
+            self._amon_stats[1] = 500
+        # Reset x and y position to inbounds if out of bounds
         if event.key == pygame.K_SPACE:
             self._color_counter += 1
             self._amon_stats[3] = self.colors[(self._color_counter % 5)]
