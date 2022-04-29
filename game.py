@@ -66,23 +66,6 @@ class GameArch:
         textrect.topleft = (x_coord, y_coord)
         self._screen.blit(textobj, textrect)
 
-    def append_loc(self, apendee):
-        """
-        """
-        self._list_of_circles.append(apendee)
-
-    def draw_circle(self, args):
-        """
-        A method for drawing circles with pygame.
-
-        Args:
-            args: a list containing (in order) a tuple with
-            three ints representing an RGB color, a tuple with
-            two ints representing x and y coords and a int 
-            representing radius
-        """
-        pygame.draw.circle(self._screen,args[0],args[1],args[2])
-
     def main_menu(self):
         """
         A method representing the main menu of the game.
@@ -147,10 +130,10 @@ class GameArch:
             # Fill screen with color
 
             current_amon.amon_mc()
-            self.append_loc(current_poop.poop())
+            self._list_of_circles.append(current_poop.poop())
 
             for list in self._list_of_circles:
-                self.draw_circle(list)
+                pygame.draw.circle(self._screen,list[0],list[1],list[2])
 
             for event in pygame.event.get():
                 if event.type == QUIT:
