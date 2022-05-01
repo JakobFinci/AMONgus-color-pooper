@@ -5,7 +5,7 @@ import sys
 import pygame
 from pygame.locals import *
 from pygame import mixer
-from amon import Amon
+from amon import Amon, AmonView
 from colortrail import Defecate
 
 pygame.init()
@@ -122,7 +122,11 @@ class GameArch:
         self._music_channel.play(self._game_music, loops=-1, fade_ms=5000)
         # Stop old music and play piano playlist if game is loaded
         current_amon = Amon()
+        current_sprite = AmonView(current_amon)
         current_poop = Defecate(current_amon)
+        amon_sprite_group = pygame.sprite.Group()
+        amon_sprite_group.add(current_sprite)
+        # Initialize all relevant objects and classes
         running = True
         while running:
 
@@ -130,20 +134,16 @@ class GameArch:
             # Fill screen with color
 
             current_amon.amon_mc()
+            # Activate Amon's model and controls
+
             self._list_of_circles.append(current_poop.poop())
-
             for item in self._list_of_circles:
-                pygame.draw.circle(self._screen,item[0],item[1],item[2])
+                pygame.draw.circle(self._screen, item[0], item[1], item[2])
+            # Poop viewer
 
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-            # Provide method for user to exit out of game
+            amon_sprite_group.draw(self._screen)
+            amon_sprite_group.update(current_amon)
+            # Amon viewer
 
             pygame.display.update()
             self._main_clock.tick(60)
