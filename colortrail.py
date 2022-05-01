@@ -5,7 +5,6 @@ The best game in the word - file for the etch-a-sketch models and controls.
 from abc import ABC, abstractmethod
 import pygame
 from pygame.locals import *
-from amon import Amon
 
 pygame.init()
 # Initialize pygame
@@ -58,6 +57,7 @@ class Defecate(ColorPoop):
                 curr_list = [colors, (amon_stats_copy[0], amon_stats_copy[1]),
                              3]
                 return curr_list
+        return None
         # Attempt to draw circle with correct coord and color by returning it's
         # data for the viewer - else do nothing.
 
