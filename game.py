@@ -137,6 +137,9 @@ class GameArch:
             # Activate Amon's model and controls
 
             self._list_of_circles.append(current_poop.poop())
+            print(current_amon.amon_stats[2])
+            # if self._amon_stats[2] = "secret":
+            #     self._list_of_circles.append(current_sprite.poot(current_amon))
             for item in self._list_of_circles:
                 pygame.draw.circle(self._screen, item[0], item[1], item[2])
             # Poop viewer

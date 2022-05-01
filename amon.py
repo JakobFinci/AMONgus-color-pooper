@@ -32,7 +32,7 @@ class Amon:
             keystrokes
             _secret_counter: a private counter for counting secrets
             _music_channel: private music channel for playing music
-            in
+            in that can send events when active
         """
         self.colors = ["red", "yellow", "blue", "black", "white"]
         self._color_counter = 0
@@ -84,6 +84,19 @@ class Amon:
             self._amon_stats[3] = self.colors[(self._color_counter % 5)]
         # Detect space and change color accordingly
 
+    def easter_egg(self):
+        """
+        Activates an easter egg. 'Nuff said.
+        """
+        self._amon_stats[2] = "secret"
+        self._amon_keystrokes = []
+        self._amon_channel.play(
+            pygame.mixer.Sound(f"Music/{self._secret_counter}.wav"))
+        self._secret_counter += 1
+        if self._secret_counter == 9:
+            self._secret_counter = 1
+        pygame.time.delay(4000)
+
     def amon_mc(self):
         """
         A method containing Amon's model and controls
@@ -97,15 +110,7 @@ class Amon:
                 # Record Amon's keystrokes
                 if self._amon_keystrokes == [K_UP, K_UP, K_DOWN, K_DOWN,
                                              K_LEFT, K_RIGHT, K_LEFT, K_RIGHT, K_b, K_a, K_SPACE]:
-                    self._amon_keystrokes = []
-                    self._amon_stats[2] = "secret"
-                    self._amon_channel.play(
-                        pygame.mixer.Sound(f"Music/{self._secret_counter}.wav"))
-                    self._secret_counter += 1
-                    if self._secret_counter == 9:
-                        self._secret_counter = 1
-                    pygame.time.delay(4000)
-                    self._amon_stats[2] = "down"
+                    self.easter_egg()
                     continue
                     # Play easter egg if secret code is detected
                 self.movement(event)
@@ -158,12 +163,15 @@ class AmonView(pygame.sprite.Sprite):
         self.rect.center = [linking_amon.amon_stats[0],
                             linking_amon.amon_stats[1]]
 
-    def poot(self):
+    def poot(self, linking_amon):
         """
         A method to allow Amon to have healthy bowel movements.
         Also pygame gets angry if I have less than two public methods.
 
+        Args:
+            linking_amon: an instance of the Amon class so we can detect current MC position.
+
         Returns:
             a list of data about Amon's bowel movement for the circle viewer.
         """
-        return [(102,90,44),(self._amon_stats[0],self._amon_stats[1]),50]
+        return [(102,90,44),(linking_amon._amon_stats[0],linking_amon._amon_stats[1]),50]
