@@ -2,6 +2,7 @@
 The best game in the word - file for Amon's model and controls.
 """
 import sys
+import time
 import pygame
 from pygame.locals import *
 from pygame import mixer
@@ -22,7 +23,7 @@ class Amon:
         Attributes:
             colors: a public list of possible colors Amon can become
             _xmovement: a private int describing Amon's movement on the x axis
-            _ymovement: a private int describing Amon's movement on the y axis 
+            _ymovement: a private int describing Amon's movement on the y axis
             _color_counter: a private int representing the number of times Amon has switched
             colors
             _amon_stats: a private list containing statistics about Amon:
@@ -33,8 +34,6 @@ class Amon:
             _amon_keystrokes: a private list for recording 11 most recent
             keystrokes
             _secret_counter: a private counter for counting secrets
-            _music_channel: private music channel for playing music
-            in that can send events when active
         """
         self.colors = ["red", "yellow", "blue", "black", "white"]
         self._xmovement = 0
@@ -44,7 +43,6 @@ class Amon:
                             self.colors[(self._color_counter % 5)]]
         self._amon_keystrokes = []
         self._secret_counter = 1
-        self._amon_channel = pygame.mixer.Channel(1)
 
     @property
     def amon_stats(self):
@@ -94,12 +92,11 @@ class Amon:
         """
         self._amon_stats[2] = "secret"
         self._amon_keystrokes = []
-        self._amon_channel.play(
+        pygame.mixer.Channel(1).play(
             pygame.mixer.Sound(f"Music/{self._secret_counter}.wav"))
         self._secret_counter += 1
         if self._secret_counter == 9:
             self._secret_counter = 1
-        pygame.time.delay(4000)
 
     def amon_mc(self):
         """
@@ -110,7 +107,10 @@ class Amon:
         if self._ymovement != 0:
             self._amon_stats[1] += self._ymovement
         # Update position based on current movement attributes
-        if pygame.key.get_pressed()[K_LEFT] is False and pygame.key.get_pressed()[K_RIGHT] is False and pygame.key.get_pressed()[K_UP] is False and pygame.key.get_pressed()[K_DOWN] is False:
+        if pygame.key.get_pressed()[K_LEFT] is False and \
+            pygame.key.get_pressed()[K_RIGHT] is False and \
+                pygame.key.get_pressed()[K_UP] is False and \
+                    pygame.key.get_pressed()[K_DOWN] is False:
             self._xmovement = 0
             self._ymovement = 0
         # Reset x and y movement attributes if keyboard is not being pressed.
@@ -186,4 +186,5 @@ class AmonView(pygame.sprite.Sprite):
         Returns:
             a list of data about Amon's bowel movement for the circle viewer.
         """
-        return [(102,90,44),(self.linking_amon.amon_stats[0],self.linking_amon.amon_stats[1]),50]
+        return [(102, 90, 44), (self.linking_amon.amon_stats[0], \
+            self.linking_amon.amon_stats[1]), 75]
