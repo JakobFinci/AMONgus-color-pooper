@@ -2,7 +2,6 @@
 The best game in the word - file for Amon's model and controls.
 """
 import sys
-import time
 import pygame
 from pygame.locals import *
 from pygame import mixer
@@ -72,15 +71,6 @@ class Amon:
             self._ymovement = 2
             self._amon_stats[2] = "down"
         # Detect movement and respond appropriately
-        if self._amon_stats[0] < 0:
-            self._amon_stats[0] = 0
-        if self._amon_stats[1] < 0:
-            self._amon_stats[1] = 0
-        if self._amon_stats[0] > 500:
-            self._amon_stats[0] = 500
-        if self._amon_stats[1] > 500:
-            self._amon_stats[1] = 500
-        # Reset x and y position to inbounds if out of bounds
         if event.key == pygame.K_SPACE:
             self._color_counter += 1
             self._amon_stats[3] = self.colors[(self._color_counter % 5)]
@@ -98,10 +88,23 @@ class Amon:
         if self._secret_counter == 9:
             self._secret_counter = 1
 
-    def amon_mc(self):
+    def amon_passive_update(self):
         """
-        A method containing Amon's model and controls
+        A method containing actions Amon does to update position and
+        movement correctly per tick. These are:
+        a) reset x and y position if out of bounds
+        b) update position based on current movement attributes
+        c) reset movement attributes if no input is detected
         """
+        if self._amon_stats[0] < 20:
+            self._amon_stats[0] = 20
+        if self._amon_stats[1] < 24:
+            self._amon_stats[1] = 24
+        if self._amon_stats[0] > 478:
+            self._amon_stats[0] = 478
+        if self._amon_stats[1] > 472:
+            self._amon_stats[1] = 472
+        # Reset x and y position to inbounds if out of bounds
         if self._xmovement != 0:
             self._amon_stats[0] += self._xmovement
         if self._ymovement != 0:
@@ -114,6 +117,12 @@ class Amon:
             self._xmovement = 0
             self._ymovement = 0
         # Reset x and y movement attributes if keyboard is not being pressed.
+
+    def amon_mc(self):
+        """
+        A method containing Amon's model and controls
+        """
+        self.amon_passive_update()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 self._amon_keystrokes.append(event.key)
@@ -175,8 +184,20 @@ class AmonView(pygame.sprite.Sprite):
         """
         self.image = pygame.image.load(
             f"Images/{linking_amon.amon_stats[3]}/{linking_amon.amon_stats[2]}.png")
-        self.rect.center = [linking_amon.amon_stats[0],
-                            linking_amon.amon_stats[1]]
+        print([linking_amon.amon_stats[0],linking_amon.amon_stats[1]])
+        if 20 < linking_amon.amon_stats[0] < 478 and 24 < linking_amon.amon_stats[1] < 472:
+            self.rect.center = [linking_amon.amon_stats[0],
+                                linking_amon.amon_stats[1]]
+        if linking_amon.amon_stats[0] < 20:
+            self.rect.center = [20,linking_amon.amon_stats[1]]
+        if linking_amon.amon_stats[0] > 478:
+            self.rect.center = [478,linking_amon.amon_stats[1]]
+        if linking_amon.amon_stats[1] < 24 :
+            self.rect.center = [linking_amon.amon_stats[0],24]
+        if linking_amon.amon_stats[1] > 472:
+            self.rect.center = [linking_amon.amon_stats[0],472]
+        # We check to see if Amon stats is out of bounds. If so, we update the sprite rect
+        # to be in bounds. Else, we update normally.
 
     def poot(self):
         """
