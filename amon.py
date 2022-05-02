@@ -184,7 +184,6 @@ class AmonView(pygame.sprite.Sprite):
         """
         self.image = pygame.image.load(
             f"Images/{linking_amon.amon_stats[3]}/{linking_amon.amon_stats[2]}.png")
-        print([linking_amon.amon_stats[0],linking_amon.amon_stats[1]])
         if 20 < linking_amon.amon_stats[0] < 478 and 24 < linking_amon.amon_stats[1] < 472:
             self.rect.center = [linking_amon.amon_stats[0],
                                 linking_amon.amon_stats[1]]
