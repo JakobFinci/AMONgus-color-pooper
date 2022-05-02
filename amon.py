@@ -21,6 +21,8 @@ class Amon:
 
         Attributes:
             colors: a public list of possible colors Amon can become
+            _xmovement: a private int describing Amon's movement on the x axis
+            _ymovement: a private int describing Amon's movement on the y axis 
             _color_counter: a private int representing the number of times Amon has switched
             colors
             _amon_stats: a private list containing statistics about Amon:
@@ -35,6 +37,8 @@ class Amon:
             in that can send events when active
         """
         self.colors = ["red", "yellow", "blue", "black", "white"]
+        self._xmovement = 0
+        self._ymovement = 0
         self._color_counter = 0
         self._amon_stats = [200, 200, "down",
                             self.colors[(self._color_counter % 5)]]
@@ -58,16 +62,16 @@ class Amon:
             Amon.
         """
         if event.key == pygame.K_LEFT:
-            self._amon_stats[0] -= 2
+            self._xmovement = -2
             self._amon_stats[2] = "left"
         if event.key == pygame.K_RIGHT:
-            self._amon_stats[0] += 2
+            self._xmovement = 2
             self._amon_stats[2] = "right"
         if event.key == pygame.K_UP:
-            self._amon_stats[1] -= 2
+            self._ymovement = -2
             self._amon_stats[2] = "up"
         if event.key == pygame.K_DOWN:
-            self._amon_stats[1] += 2
+            self._ymovement = 2
             self._amon_stats[2] = "down"
         # Detect movement and respond appropriately
         if self._amon_stats[0] < 0:
@@ -101,6 +105,15 @@ class Amon:
         """
         A method containing Amon's model and controls
         """
+        if self._xmovement != 0:
+            self._amon_stats[0] += self._xmovement
+        if self._ymovement != 0:
+            self._amon_stats[1] += self._ymovement
+        # Update position based on current movement attributes
+        if pygame.key.get_pressed()[K_LEFT] is False and pygame.key.get_pressed()[K_RIGHT] is False and pygame.key.get_pressed()[K_UP] is False and pygame.key.get_pressed()[K_DOWN] is False:
+            self._xmovement = 0
+            self._ymovement = 0
+        # Reset x and y movement attributes if keyboard is not being pressed.
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 self._amon_keystrokes.append(event.key)
