@@ -163,15 +163,12 @@ class AmonView(pygame.sprite.Sprite):
         self.rect.center = [linking_amon.amon_stats[0],
                             linking_amon.amon_stats[1]]
 
-    def poot(self, linking_amon):
+    def poot(self):
         """
         A method to allow Amon to have healthy bowel movements.
         Also pygame gets angry if I have less than two public methods.
 
-        Args:
-            linking_amon: an instance of the Amon class so we can detect current MC position.
-
         Returns:
             a list of data about Amon's bowel movement for the circle viewer.
         """
-        return [(102,90,44),(linking_amon._amon_stats[0],linking_amon._amon_stats[1]),50]
+        return [(102,90,44),(self.linking_amon.amon_stats[0],self.linking_amon.amon_stats[1]),50]
