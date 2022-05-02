@@ -141,7 +141,9 @@ class AmonView(pygame.sprite.Sprite):
         Attributes:
             Based off of the norm with pygame sprites - we initialize a pygame
             surface and a pygame rectangle as well as defining a class instance
-            of Amon to link the MC with the V
+            of Amon to link the MC with the V.
+            Variables are all public due to the nature of standard practice of
+            PyGame sprites.
         """
         self.linking_amon = linking_amon
         super().__init__()
