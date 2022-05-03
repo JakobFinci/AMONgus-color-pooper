@@ -7,7 +7,7 @@
 ### A calming artistic experience 
 
 ## About the Project
-This project was made as an homage to [Amon "Dr. Splat" Millner](amonmillner.com): the inventor of Scratch, polymath, legend among ~~us~~ men, sussy baka, and - most importantly - the **greatest** professor at Olin College of Engineering. Much like Dr. Millner, this game is a masterpiece and one of G-d's greatest creations. Listen to the soothing piano as Amon~~gus~~ [glides across the screen](https://www.youtube.com/watch?v=bJVWZy4QOy0) with the greatest of ease, like [butter](https://www.icantbelieveitsnotbutter.com/en), [pooping out rainbow ~~turds~~ pellets](https://www.michaels.com/assorted-funny-bunny-candy-pooper/10320564.html) as he goes!
+This project was made as an homage to [Amon "Dr. Splat" Millner](http://www.amonmillner.com): the inventor of Scratch, polymath, legend among ~~us~~ men, sussy baka, and - most importantly - the **greatest** professor at Olin College of Engineering. Much like Dr. Millner, this game is a masterpiece and one of G-d's greatest creations. Listen to the soothing piano as Amon~~gus~~ [glides across the screen](https://www.youtube.com/watch?v=bJVWZy4QOy0) with the greatest of ease, like [butter](https://www.icantbelieveitsnotbutter.com/en), [pooping out rainbow ~~turds~~ pellets](https://www.michaels.com/assorted-funny-bunny-candy-pooper/10320564.html) as he goes!
 
 ## Controls
 - Arrow Keys to Move Amon
