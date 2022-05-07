@@ -88,6 +88,18 @@ class Amon:
         if self._secret_counter == 9:
             self._secret_counter = 1
 
+    def update_x_and_y(self, x_amount, y_amount):
+        """
+        A method for adjusting the private variables
+        _xmovement and _ymovement for pytests.
+
+        Args:
+            x_amount: amount to adjust the _xmovement by.
+            y_amount: amount to adjust the _ymovement by.
+        """
+        self._xmovement += x_amount
+        self._ymovement += y_amount
+
     def amon_passive_update(self):
         """
         A method containing actions Amon does to update position and

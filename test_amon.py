@@ -1,44 +1,46 @@
 """
-Unit tests for amon.
+Unit tests for Amon.
 """
-import io
-import pytest
-import amon
-import pygame
+# import pygame
+import pytest #pylint: disable=unused-import
 from amon import Amon
 
-'''
-Rough idea for testing movement
-'''
+# def test_movement():
+#     """
+#     Test to see if Amon takes and interprets user input correctly
+#     """
+#     user = Amon()
+#     initial_position=user.amon_stats[0]
+#     user.movement(pygame.K_LEFT)
+#     assert amon_stats()[0]==(initial_position-2)
 
-'''
-def test_movement():
-    initial_position=amon_stats()[0]
-    user_input=pygame.K_LEFT
-    movement(user_input)
-    assert amon_stats()[0]==(initial_position-2)
-
-'''
 def test_does_amon_exist():
     '''
+    Test to see if we can sucessfully initiate an instance of Amon with
+    correct attributes
     '''
     user = Amon()
-    assert user.amon_stats == [200, 200, "down","red"]
+    assert user.amon_stats == [200, 200, "down", "red"]
+
+
 def test_out_of_bounds():
     '''
+    Test to see if Amon successfully detects when he is out-of-bounds and
+    self corrects.
     '''
     user = Amon()
-    user._xmovement = 500-200
-    user._ymovement = 500-200
+    user.update_x_and_y(300,300)
     user.amon_passive_update()
     user.amon_passive_update()
-    assert user.amon_stats == [478,472,"down","red"]
+    assert user.amon_stats == [478, 472, "down", "red"]
+
+
 def test_in_bounds():
     '''
+    Test to see if Amon sucessfully moves whilst inbounds
     '''
     user = Amon()
-    user._xmovement = 50
-    user._ymovement = 50
+    user.update_x_and_y(50,50)
     user.amon_passive_update()
     user.amon_passive_update()
-    assert user.amon_stats == [250,250,"down","red"]
+    assert user.amon_stats == [250, 250, "down", "red"]
