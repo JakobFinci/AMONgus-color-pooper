@@ -49,7 +49,17 @@ class Amon:
         A property method that returns a copy of _amon_stats
         """
         return self._amon_stats
-
+    def edit_amon_stats(self,x,y,direction,color):
+        '''
+        A method for testing features dependent on amon_stats.
+        Args: 
+            x: x coordinate input
+            y: y coordinate input
+            direction: text direction input
+            color: text color input
+        '''
+        self._amon_stats=[x, y, direction,color]
+        
     def movement(self, event):
         """
         A method for moving Amon and changing his color.
@@ -89,7 +99,6 @@ class Amon:
             self._secret_counter = 1
 
     def update_x_and_y(self, x_amount, y_amount):
-        #write a pytest
         """
         A method for adjusting the private variables
         _xmovement and _ymovement for pytests.
@@ -195,7 +204,6 @@ class AmonView(pygame.sprite.Sprite):
         A pygame update method to update the location and appearance of Amon based off of the input
         from the linking_amon's MC.
         """
-        #write a pytest
         self.image = pygame.image.load(
             f"Images/{linking_amon.amon_stats[3]}/{linking_amon.amon_stats[2]}.png")
         if 20 < linking_amon.amon_stats[0] < 478 and 24 < linking_amon.amon_stats[1] < 472:

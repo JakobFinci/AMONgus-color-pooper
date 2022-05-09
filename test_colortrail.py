@@ -3,8 +3,6 @@ Unit tests for color trail.
 """
 import pytest #pylint: disable=unused-import
 from amon import Amon
-from amon import AmonView
-from colortrail import ColorPoop
 from colortrail import Defecate
 
 def test_color_trail_yellow():
@@ -13,7 +11,7 @@ def test_color_trail_yellow():
     '''
     user = Amon()
     color_user = Defecate(user)
-    user._amon_stats = [200, 200, "down","yellow"]
+    user.edit_amon_stats(200, 200, "down","yellow")
     user.amon_passive_update()
     user.amon_passive_update()
     color_user.poop()
@@ -25,7 +23,7 @@ def test_color_trail_red():
     '''
     user = Amon()
     color_user = Defecate(user)
-    user._amon_stats = [200, 200, "down","red"]
+    user.edit_amon_stats(200, 200, "down","red")
     user.amon_passive_update()
     user.amon_passive_update()
     color_user.poop()
@@ -37,7 +35,7 @@ def test_color_trail_blue():
     '''
     user = Amon()
     color_user = Defecate(user)
-    user._amon_stats = [200, 200, "down","blue"]
+    user.edit_amon_stats(200, 200, "down","blue")
     user.amon_passive_update()
     user.amon_passive_update()
     color_user.poop()
@@ -49,7 +47,7 @@ def test_color_trail_white():
     '''
     user = Amon()
     color_user = Defecate(user)
-    user._amon_stats = [200, 200, "down","white"]
+    user.edit_amon_stats(200, 200, "down","white")
     user.amon_passive_update()
     user.amon_passive_update()
     color_user.poop()
