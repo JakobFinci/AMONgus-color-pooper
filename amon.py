@@ -50,6 +50,18 @@ class Amon:
         """
         return self._amon_stats
 
+    def edit_amon_stats(self,x,y,direction,color):
+        '''
+        A method for testing features dependent on amon_stats.
+        
+        Args: 
+            x: x coordinate input
+            y: y coordinate input
+            direction: text direction input
+            color: text color input
+        '''
+        self._amon_stats=[x, y, direction,color]
+
     def movement(self, event):
         """
         A method for moving Amon and changing his color.
