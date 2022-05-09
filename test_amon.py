@@ -1,18 +1,8 @@
 """
 Unit tests for Amon.
 """
-# import pygame
 import pytest #pylint: disable=unused-import
 from amon import Amon
-
-# def test_movement():
-#     """
-#     Test to see if Amon takes and interprets user input correctly
-#     """
-#     user = Amon()
-#     initial_position=user.amon_stats[0]
-#     user.movement(pygame.K_LEFT)
-#     assert amon_stats()[0]==(initial_position-2)
 
 def test_does_amon_exist():
     '''
