@@ -3,6 +3,7 @@ Unit tests for Amon.
 """
 import pytest #pylint: disable=unused-import
 from amon import Amon
+from amon import AmonView
 
 def test_does_amon_exist():
     '''
@@ -34,3 +35,13 @@ def test_in_bounds():
     user.amon_passive_update()
     user.amon_passive_update()
     assert user.amon_stats == [250, 250, "down", "red"]
+
+def test_update_x_and_y():
+    '''
+    test to verify the update mechanic works
+    '''
+    user = Amon()
+    user.update_x_and_y(0,0)
+    user.amon_passive_update()
+    user.amon_passive_update()
+    assert user.amon_stats == [200, 200, "down", "red"]
